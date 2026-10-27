@@ -37,13 +37,24 @@ Every run returns a structured `CaseReport` (validated with Pydantic) including 
 
 ```bash
 pip install -r requirements.txt
-export PYTHONPATH=src
-python -m fraud_agent.data          # builds the synthetic SQLite database
-python -m fraud_agent.graph         # investigates all demo accounts
-uvicorn fraud_agent.api:app --reload
+python data.py                      # builds the synthetic SQLite database
+python graph.py                     # investigates all demo accounts
+uvicorn api:app --reload
 curl -X POST localhost:8000/investigate/A500
 pytest -q
 ```
+
+## Project files
+
+| File | Purpose |
+|---|---|
+| graph.py | LangGraph workflow, state, guardrails, and routing |
+| tools.py | Read only SQL tools, risk scoring, and policy retrieval |
+| llm.py | Case summary writer (OpenAI or offline) |
+| data.py | Builds the synthetic bank database |
+| api.py | FastAPI service |
+| *.md policies | high_velocity, geo_mismatch, large_transfer, structuring |
+| test_agent.py | pytest suite |
 
 ## Demo accounts
 

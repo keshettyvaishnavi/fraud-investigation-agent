@@ -1,9 +1,9 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from fraud_agent.api import app
-from fraud_agent.graph import investigate
-from fraud_agent.tools import safe_sql
+from api import app
+from graph import investigate
+from tools import safe_sql
 
 
 def test_normal_account_closes():

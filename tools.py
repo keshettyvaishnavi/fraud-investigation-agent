@@ -8,9 +8,10 @@ from pydantic import BaseModel, Field
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from .data import DB_PATH, build_database
+from data import DB_PATH, build_database
 
-POLICY_DIR = Path(__file__).resolve().parents[2] / "data" / "policies"
+POLICY_DIR = Path(__file__).resolve().parent
+POLICY_FILES = ["high_velocity", "geo_mismatch", "large_transfer", "structuring"]
 ALLOWED_TABLES = {"accounts", "transactions"}
 BLOCKED = re.compile(r"\b(insert|update|delete|drop|alter|create|attach|pragma|replace)\b", re.I)
 
@@ -99,7 +100,7 @@ class PolicyIndex:
     """Small retrieval index over policy documents. Swap TF IDF for embeddings plus FAISS in production."""
 
     def __init__(self, folder: Path = POLICY_DIR):
-        self.docs = {p.stem: p.read_text() for p in sorted(folder.glob("*.md"))}
+        self.docs = {name: (folder / f"{name}.md").read_text() for name in POLICY_FILES}
         self.names = list(self.docs)
         self.vec = TfidfVectorizer(stop_words="english")
         self.matrix = self.vec.fit_transform(self.docs.values())

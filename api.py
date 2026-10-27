@@ -1,7 +1,7 @@
 """FastAPI service so other systems can request an investigation."""
 from fastapi import FastAPI, HTTPException
 
-from .graph import CaseReport, investigate
+from graph import CaseReport, investigate
 
 app = FastAPI(title="Fraud Investigation Agent")
 
