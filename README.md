@@ -2,7 +2,7 @@
 
 An agentic AI workflow that helps bank fraud analysts review suspicious accounts. Built with LangGraph, it gathers evidence through controlled tools, scores risk, retrieves the right internal policy with retrieval augmented generation (RAG), applies guardrails the model cannot override, and sends high risk cases to a human reviewer with a clear, traceable case summary.
 
-This is a public, simplified version of the kind of system I work on in banking. All data is synthetic.
+This is a personal project inspired by common fraud review workflows in banking. All data is synthetic, and no employer code, data, or systems are used.
 
 ## Why this project
 
